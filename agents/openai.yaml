@@ -1,0 +1,6 @@
+interface:
+  display_name: "Data to Viz"
+  short_description: "Choose, create, and review truthful data charts"
+  default_prompt: "Use $data-to-viz to choose and create a chart for my data, explaining the choice and checking the relevant caveats."
+policy:
+  allow_implicit_invocation: true
