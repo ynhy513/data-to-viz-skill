@@ -1,87 +1,88 @@
 # Data to Viz Skill
 
-用于**选图、制作和审查数据可视化**的可复用 Agent Skill。以 [From Data to Viz](https://www.data-to-viz.com/) 的数据结构决策树和常见图表陷阱为基础，补充任务目的、工具路由、数值核对与实际渲染验收。
+**English** | [简体中文](README.zh-CN.md)
 
-An Agent Skill for choosing, creating, and reviewing truthful charts. It combines an adapted Data to Viz decision tree with conditional caveat checks and clear ownership between chart, calculator, web, and artifact workflows.
+A reusable Agent Skill for **choosing, creating, and reviewing data visualizations**. It builds on [From Data to Viz](https://www.data-to-viz.com/)'s data-format decision tree and chart caveats, adding purpose-driven selection, tool routing, numerical checks, and verification of rendered output.
 
-## 工作方式
+## How it works
 
-1. **明确问题与数据口径**：受众要看什么关系，一行数据代表什么，单位、分母、缺失值和聚合是否正确。
-2. **按数据结构筛选，再按目的选图**：分布、比较、关联、时间、组成、层级、网络或地理；必要时比较一个合理替代方案。
-3. **调用合适的制作工具**：保留用户指定的工具、格式、可编辑性和交付位置。
-4. **检查可能误导的地方**：刻度、面积、分箱、样本量、不确定性、遮挡、缺失值、加权口径与因果措辞。
-5. **验证实际结果**：区分产物生成、数值核对、渲染与交互检查，以及真实受众效果。
+1. **Define the question and data contract:** what the audience needs to compare, what one row represents, and whether units, denominators, missing values, and aggregation are correct.
+2. **Narrow by data structure, then choose by purpose:** distribution, comparison, association, time, composition, hierarchy, networks, or geography. Compare a credible alternative when it helps resolve the choice.
+3. **Use the appropriate creation tool:** preserve the requested tool, format, editability, and delivery destination.
+4. **Check what could mislead:** scales, area encoding, binning, sample size, uncertainty, overplotting, missingness, weighting, and causal language.
+5. **Verify the result:** distinguish artifact generation, numerical checks, rendering and interaction checks, and evidence of actual audience outcomes.
 
-Skill 提供方法与检查规则，实际图表由环境中可用的渲染器或插件完成。基础选图不需要额外插件；制作时使用已有工具。
+The skill supplies reasoning and review rules; available renderers or plugins create the chart. Basic chart selection needs no additional plugin. Creation uses tools available in the current environment.
 
-## 安装
+## Installation
 
-在支持 Agent Skills 的 Codex 环境中，可安装到用户级技能目录：
+In a Codex environment that supports Agent Skills, install it in the user-level skills directory:
 
 ```sh
 mkdir -p ~/.agents/skills
 git clone https://github.com/ynhy513/data-to-viz-skill.git ~/.agents/skills/data-to-viz
 ```
 
-如果你的环境使用 `~/.codex/skills`，将上述安装根目录替换为该路径。选择一个被当前客户端识别的目录，避免同时安装两份同名 Skill。客户端未显示新 Skill 时，可刷新或重新启动。参见 [Codex 技能说明](https://learn.chatgpt.com/docs/build-skills)。
+If your environment uses `~/.codex/skills`, substitute that installation root. Choose a location recognized by your client and avoid installing two copies with the same skill name. Refresh or restart the client if the new skill does not appear. See the [Codex skills documentation](https://learn.chatgpt.com/docs/build-skills).
 
-仓库根目录就是技能目录，包含 `SKILL.md`、`agents/` 和 `references/`。安装不需要复制本仓库以外的个人配置。
+The repository root is the skill directory and contains `SKILL.md`, `agents/`, and `references/`. Installation does not require copying personal configuration from outside this repository.
 
-## 使用
+## Usage
 
-显式调用：
+Invoke the skill explicitly:
 
 ```text
-用 $data-to-viz 帮我选择并制作这组数据的图表，说明选图理由并检查相关问题。
+Use $data-to-viz to choose and create a chart for this dataset. Explain the choice and check the relevant caveats.
 ```
 
-也可直接提出数据可视化任务。`agents/openai.yaml` 已允许隐式调用；客户端仍需先发现技能，模型再根据描述选择。不能把一次调用成功视为所有未来任务都必然调用。
+You can also describe a visualization task without naming the skill. `agents/openai.yaml` allows implicit invocation, but the client must first discover the skill and the model then selects it from its description. A successful invocation does not guarantee selection for every future task.
 
-如果希望为自己的环境增加明确路由，可在适用的 `AGENTS.md` 中加入类似规则，并按实际安装路径调整：
+For an explicit routing rule in your own environment, add something like this to the applicable `AGENTS.md`, adjusting the path to match your installation:
 
 ```markdown
-涉及定量图表的选图、制作、修改或审查时，先读取
-`~/.agents/skills/data-to-viz/SKILL.md`，应用其决策树与相关 caveats，
-再按交付目标使用合适的渲染器或插件。纯概念图和仅提及图表的翻译等任务不触发此规则。
+For quantitative chart selection, creation, revision, or review, first read
+`~/.agents/skills/data-to-viz/SKILL.md` and apply its decision tree and relevant caveats.
+Then use the appropriate renderer or plugin for the requested destination.
+Exclude pure conceptual diagrams and tasks such as translation that only mention charts.
 ```
 
-可尝试的任务：
+Example requests:
 
-- “比较 12 个国家的销售额，主要想看排名，应该用什么图？”
-- “做一个带渠道选择器的月收入图，缺失值和零要分开。”
-- “做一个可调价格和销量的收入、利润情景计算器。”
-- “审查这张图有没有截断坐标轴、隐藏分布或夸大结论的问题。”
+- “I need to compare sales across 12 countries, mainly to see the ranking. Which chart fits?”
+- “Create a monthly revenue chart with a channel selector. Keep missing values distinct from zero.”
+- “Create a revenue and profit scenario calculator with adjustable price and demand.”
+- “Review this chart for truncated axes, hidden distributions, or exaggerated claims.”
 
-## 与制作工具配合
+## Working with creation tools
 
-| 任务 | 制作职责 |
+| Task | Presentation responsibility |
 | --- | --- |
-| 标准图表、日期/分类筛选、系列选择 | 可用时使用 Data 的标准图表组件 |
-| 聊天中的情景计算器、模拟器、交互解释器 | 可用时由 Visualize 负责整个工具及其中的图表 |
-| 已有应用中的 React 图表或地图组件 | 保留项目技术栈，使用相关 Web 专项能力 |
-| 科学图片、PNG/PDF/SVG、可编辑工作簿或演示稿 | 使用适合所需格式的绘图或原生文档工具 |
-| 纯概念结构图 | 使用对应图示方法，如 Mermaid；不强套定量图表规则 |
+| Standard charts, date/category filters, and series selection | Use Data's standard chart component when available |
+| In-conversation scenario calculators, simulations, and interactive explainers | Let Visualize own the whole tool, including its charts, when available |
+| React chart or map components in an existing application | Preserve the project stack and use relevant web visualization specialists |
+| Scientific figures, PNG/PDF/SVG exports, editable workbooks, or presentations | Use plotting or native artifact tools suited to the requested format |
+| Pure conceptual structure diagrams | Use an appropriate diagram method, such as Mermaid, without forcing quantitative-chart rules onto it |
 
-这些插件不是强制依赖。未安装时，使用可用且适合目标的替代工具，并说明实际限制。详细规则见 [桌面工具路由](references/desktop-routing.md)。
+These plugins are optional, not mandatory dependencies. When unavailable, use an appropriate available alternative and state the actual limitation. See [desktop routing](references/desktop-routing.md) for the detailed ownership rules.
 
-## 内容
+## Contents
 
-- [SKILL.md](SKILL.md)：触发范围与主要工作流程。
-- [选图决策树](references/decision-tree.md)：按数据结构和表达目的选择图表。
-- [常见陷阱](references/caveats.md)：有条件的图表检查与修正方法。
-- [制作与验收](references/create-and-verify.md)：数据准备、制作和验证。
-- [桌面工具路由](references/desktop-routing.md)：处理多个可视化能力的职责重叠。
+- [SKILL.md](SKILL.md): scope, triggers, and the main workflow.
+- [Chart-selection decision tree](references/decision-tree.md): select charts by data structure and analytical purpose.
+- [Caveats](references/caveats.md): conditional chart checks and remedies.
+- [Creation and verification](references/create-and-verify.md): prepare data, create the artifact, and verify the result.
+- [Desktop routing](references/desktop-routing.md): resolve overlapping responsibilities between visualization capabilities.
 
-## 已做的验证
+## Validation performed
 
-2026-11-04 的开发环境验证包括技能结构检查、自然语言自动调用测试、相邻任务的排除检查，以及 Data 与 Visualize 的实际预览测试。渠道筛选、缺失与零、情景计算、零销量及重置路径均已检查；两个原生聊天内联实例的显示与控件也经人工确认。
+Development-environment checks on **2026-11-04** covered skill structure, implicit invocation from ordinary requests, exclusion of adjacent tasks, and actual Data and Visualize preview runs. Channel selection, missing versus zero, modeled calculations, zero demand, and reset were checked. Display and controls for both native in-chat examples were also manually confirmed.
 
-这些是特定环境和示例的验证，不能证明所有客户端、插件版本、输入组合或未来调用都正常，也不代表受众理解或商业效果已验证。本仓库不打包第三方插件运行时或本机调试记录。
+These checks apply to specific fixtures and one environment. They do not establish compatibility with every client, plugin version, input combination, or future invocation, nor do they demonstrate audience comprehension or business effectiveness. Third-party plugin runtimes and local debugging records are not bundled in this repository.
 
-## 来源与许可
+## Sources and license
 
-方法来源为 Yan Holtz 与 Conor Healy 的 [From Data to Viz](https://www.data-to-viz.com/)，尤其是其 [项目理念](https://www.data-to-viz.com/about.html)、[数据示例](https://www.data-to-viz.com/#story) 与 [常见陷阱](https://www.data-to-viz.com/caveats.html)。
+The method draws on [From Data to Viz](https://www.data-to-viz.com/), by **Yan Holtz and Conor Healy**, particularly its [project philosophy](https://www.data-to-viz.com/about.html), [data stories](https://www.data-to-viz.com/#story), and [chart caveats](https://www.data-to-viz.com/caveats.html).
 
-这里是经过改写并扩展的操作指南，不是原网站二十种数据格式海报的逐节点复刻。数据质量、交付验证和插件路由等扩展已在文档中区分。该项目独立维护，未获上游项目或 OpenAI 背书。
+This is an adapted and extended operational guide, not a node-for-node reproduction of the original twenty-format poster. The documents distinguish additions such as data-quality checks, delivery verification, and plugin routing. This project is independently maintained and is not endorsed by the upstream project or OpenAI.
 
-本仓库原创内容采用 [MIT License](LICENSE)。上游来源署名与许可见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+Original contributions in this repository use the [MIT License](LICENSE). Upstream attribution and licensing information are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
