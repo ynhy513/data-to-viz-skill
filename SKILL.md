@@ -1,6 +1,6 @@
 ---
 name: data-to-viz
-description: "Use for charts and data visualization in reports, slides, dashboards, spreadsheets, infographics, and maps. Choose, create, revise, or critique quantitative visuals using Data to Viz's decision tree and caveats, alongside the requested rendering tool. Excludes decorative imagery, pure conceptual diagrams, and tasks that only mention charts."
+description: "Use for charts and data visualization in reports, slides, dashboards, spreadsheets, infographics, and maps. Choose, create, revise, or critique quantitative visuals using Data to Viz's decision tree and caveats. Apply chart art direction from a design pack, deck, or visual reference when requested. Excludes decorative imagery, pure conceptual diagrams, and tasks that only mention charts."
 ---
 
 # Data to Viz
@@ -34,9 +34,17 @@ Structure determines feasible candidates; purpose, semantics, and reading burden
 
 For a nontrivial choice, compare a primary option with one credible alternative using the same data and scope. Render both when it resolves uncertainty, not as a compulsory deliverable. Prefer aligned positions for precise comparison; justify area, angle, radial, or 3D encodings by their analytical purpose.
 
+For a probability path with evidence updates, distinguish the probability of reaching a branch, the outcome probability conditional on that branch, and its contribution to the overall outcome. When changing evidence, update all displays together and verify that only the active state carries a selected label. Reconcile rounded changes against the unrounded calculation.
+
 Honor a suitable explicit user choice with relevant caveats. If an encoding cannot truthfully represent the data, explain the specific problem and offer an alternative. A table or single value can be the best result.
 
-## 3. Create through the appropriate delivery tool
+## 3. Plan the visual treatment
+
+When given a design pack or asked to improve design quality, apply an editorial style, or match a deck/reference, read [visual direction and design-pack mapping](references/visual-direction.md) after choosing the encoding. Before rendering, define the first focal point, the page and annotation layout, and the behavior of any selected state. Map each adopted reference rule to a chart component and a rendered check. Keep the plan in working notes or the existing render spec.
+
+When the user has no reference and a bespoke treatment would help, consult the [visual reference library](references/visual-references.md) for up to three examples that solve the same reading task. Prefer the closest compositional match. For ordinary charts, use the established house style and a clear visual hierarchy.
+
+## 4. Create through the appropriate delivery tool
 
 Read [creation and verification](references/create-and-verify.md) for implementation or substantial revisions. Honor the requested tool, stack, format, and destination; otherwise choose the lightest available implementation that meets the need.
 
@@ -53,7 +61,7 @@ Coordinate with installed capabilities:
 
 Discover actual installed skills/tools. Do not hardcode plugin version paths or assume a capability exists. If unavailable, state the limit and use an authorized suitable fallback. Do not turn a static chart into a dashboard or require publication, a paid service, installation, or a new framework just to draw it.
 
-## 4. Apply relevant caveats
+## 5. Apply relevant caveats
 
 Read [caveats](references/caveats.md), selecting relevant rows. Before delivery check:
 
@@ -64,9 +72,9 @@ Read [caveats](references/caveats.md), selecting relevant rows. Before delivery 
 
 Apply conditional checks rather than blanket bans. Keep uncertainty intervals when estimate precision is the question; raw observations answer a different question. Novelty alone does not disqualify a chart, and attractiveness does not establish suitability.
 
-## 5. Verify and deliver
+## 6. Verify and deliver
 
-Independently reconcile decisive displayed values with the source or reviewed transformation. Inspect actual marks at intended size. Exercise authored controls and meaningful missing/empty states where relevant. Inspect the saved/exported result when it is the deliverable.
+Independently reconcile decisive displayed values with the source or reviewed transformation. Inspect actual marks at intended size. For designed charts, review the focal point at thumbnail scale and legibility at delivery size. Exercise authored controls and meaningful missing/empty states where relevant. Inspect the saved/exported result when it is the deliverable.
 
 Use documented renderer guarantees where applicable, keeping numerical verification separate. If visual or interaction inspection is unavailable, report the specific unchecked part; file existence and source inspection do not prove rendering.
 
