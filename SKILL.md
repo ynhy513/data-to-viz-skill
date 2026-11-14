@@ -42,7 +42,7 @@ Honor a suitable explicit user choice with relevant caveats. If an encoding cann
 
 When given a design pack or asked to improve design quality, apply an editorial style, or match a deck/reference, read [visual direction and design-pack mapping](references/visual-direction.md) after choosing the encoding. Before rendering, define the first focal point, the page and annotation layout, and the behavior of any selected state. Map each adopted reference rule to a chart component and a rendered check. Keep the plan in working notes or the existing render spec.
 
-When the user has no reference and a bespoke treatment would help, consult the [visual reference library](references/visual-references.md) for up to three examples that solve the same reading task. Prefer the closest compositional match. For ordinary charts, use the established house style and a clear visual hierarchy.
+When the user has no reference and a bespoke treatment would help, consult the [visual reference library](references/visual-references.md) for up to three examples that solve the same reading task. Start with its design recipes, then open the corresponding public examples. Record the specific mark, layout, annotation or state each example informs and the check it adds. For ordinary charts, use the established house style and a clear visual hierarchy.
 
 ## 4. Create through the appropriate delivery tool
 

@@ -4,6 +4,8 @@
 
 A reusable Agent Skill for **choosing, creating, and reviewing data visualizations**. It builds on [From Data to Viz](https://www.data-to-viz.com/)'s data-format decision tree and chart caveats, adding purpose-driven selection, tool routing, numerical checks, and verification of rendered output.
 
+For chart composition, annotations, and interaction, use the [design recipes and 132 public chart references](references/visual-references.md) with the [visual direction workflow](references/visual-direction.md).
+
 ## How it works
 
 1. **Define the question and data contract:** what the audience needs to compare, what one row represents, and whether units, denominators, missing values, and aggregation are correct.

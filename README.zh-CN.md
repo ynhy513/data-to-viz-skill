@@ -4,6 +4,8 @@
 
 用于**选图、制作和审查数据可视化**的可复用 Agent Skill。以 [From Data to Viz](https://www.data-to-viz.com/) 的数据结构决策树和常见图表陷阱为基础，补充任务目的、工具路由、数值核对与实际渲染验收。
 
+需要设计构图、标注或交互时，可以从 [132 个公开图样与设计配方](references/visual-references.md) 找到对应手法，再按 [视觉设计流程](references/visual-direction.md) 落到成图与验收。
+
 ## 工作方式
 
 1. **明确问题与数据口径**：受众要看什么关系，一行数据代表什么，单位、分母、缺失值和聚合是否正确。
